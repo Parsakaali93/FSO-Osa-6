@@ -25,9 +25,9 @@ const App = () => {
     <div>
       <h2>Anecdotes</h2>
       {anecdotes.map(anecdote =>
-        <div key={anecdote.id}>
+        <div key={anecdote.id} style={{marginTop: 10, marginBottom: 10}}>
           <div>
-            {anecdote.content}
+            <b>{anecdote.content}</b>
           </div>
           <div>
             has {anecdote.votes}
