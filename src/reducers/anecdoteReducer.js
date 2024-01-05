@@ -1,4 +1,5 @@
 import { act } from "react-dom/test-utils"
+import { __DO_NOT_USE__ActionTypes, createSlice } from '@reduxjs/toolkit'
 
 const anecdotesAtStart = [
   'If it hurts, do it more often',
@@ -21,7 +22,26 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-const anecdoteReducer = (state = initialState, action) => {
+const anecdoteSlice = createSlice({
+    name: 'anecdotes',
+    initialState,
+    reducers:{
+        addVote(state, action){
+          const correspondingAnecdote = state.find(anecdote => anecdote.id === action.payload.id)
+          const voteAddedAnecdote = {...correspondingAnecdote, votes: correspondingAnecdote.votes + 1}
+          
+          return state.map(anecdote =>
+            anecdote.id !== action.payload.id ? anecdote : voteAddedAnecdote
+          ).sort((a, b) => a.votes < b.votes)
+        },
+
+        addAnecdote(state, action){
+          return state.concat(action.payload)
+        }
+    }
+})
+
+/*const anecdoteReducer = (state = initialState, action) => {
   console.log('state now: ', state)
   console.log('action', action)
 
@@ -57,6 +77,7 @@ export const addAnecdote = (content) => {
     type: 'NEW_ANECDOTE',
     payload: content 
   }
-}
+}*/
 
-export default anecdoteReducer
+export const { addVote, addAnecdote } = anecdoteSlice.actions
+export default anecdoteSlice.reducer
