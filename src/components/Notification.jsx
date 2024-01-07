@@ -4,21 +4,25 @@ import { clearNotification } from '../reducers/notificationReducer';
 
 const Notification = () => {
     const notification = useSelector(state => state.notification)
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
 
     useEffect(() => {
-        let timer;
+        console.log("notification: ", notification)
+    }, [notification])
+
+    // useEffect(() => {
+    //     let timer;
     
-        if (notification) {
-          // Set the notification and start a timer to clear it after 5 seconds
-          timer = setTimeout(() => {
-            dispatch(clearNotification())
-          }, 5000);
-        }
+    //     if (notification) {
+    //       // Set the notification and start a timer to clear it after 5 seconds
+    //       timer = setTimeout(() => {
+    //         dispatch(clearNotification())
+    //       }, 5000);
+    //     }
     
-        // Clear the timer if the component unmounts or the notification changes
-        return () => clearTimeout(timer);
-      }, [notification]);
+    //     // Clear the timer if the component unmounts or the notification changes
+    //     return () => clearTimeout(timer);
+    //   }, [notification]);
 
     const style = {
       border: 'solid',
